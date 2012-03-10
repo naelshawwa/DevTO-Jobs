@@ -3,26 +3,76 @@ define([
   "namespace",
 
   // Libs
-  "use!backbone"
+  "use!backbone",
 
   // Modules
-
+  "modules/navigation"
   // Plugins
 ],
 
-function(namespace, Backbone) {
+function(namespace, Backbone, Navigation) {
 
   // Create a new module
-  var Job = namespace.module();
+  var User = namespace.module();
 
-  // Job extendings
-  Job.Model = Backbone.Model.extend({ /* ... */ });
-  Job.Collection = Backbone.Collection.extend({ /* ... */ });
-  Job.Router = Backbone.Router.extend({ /* ... */ });
+  // User extendings
+  User.Model = Backbone.Model.extend({ /* ... */ });
+  User.Collection = Backbone.Collection.extend({ /* ... */ });
+  User.Router = Backbone.Router.extend({ 
+    routes: {
+      "": "user",
+      "create":"create"
+    },
+    user: function(hash) {
+
+      var user = new User.Views.Single();
+      var navigation = new Navigation.Views.Primary();
+
+      navigation.render(function(el) {
+        $("#navigation").html(el);
+      });
+
+      user.render(function(el) {
+        $("#main").html(el);
+      });
+    },
+    create: function(hash) {
+
+      var user = new User.Views.Create();
+      var navigation = new Navigation.Views.Primary();
+
+      navigation.render(function(el) {
+        $("#navigation").html(el);
+      });
+
+      user.render(function(el) {
+        $("#main").html(el);
+      });
+    }
+  });
 
   // This will fetch the tutorial template and render it.
-  Job.Views.Single = Backbone.View.extend({
-    template: "app/templates/job.html",
+  User.Views.Single = Backbone.View.extend({
+    template: "app/templates/user.html",
+
+    render: function(done) {
+      var view = this;
+
+      // Fetch the template, render it to the View element and call done.
+      namespace.fetchTemplate(this.template, function(tmpl) {
+        view.el.innerHTML = tmpl();
+
+        // If a done function is passed, call it with the element
+        if (_.isFunction(done)) {
+          done(view.el);
+        }
+      });
+    }
+  });
+
+  // This will fetch the tutorial template and render it.
+  User.Views.Create = Backbone.View.extend({
+    template: "app/templates/create_user.html",
 
     render: function(done) {
       var view = this;
@@ -40,6 +90,6 @@ function(namespace, Backbone) {
   });
 
   // Required, return the module for AMD compliance
-  return Job;
+  return User;
 
 });

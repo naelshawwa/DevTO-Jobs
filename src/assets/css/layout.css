@@ -1,0 +1,9 @@
+ul, li {margin:0;}
+
+#navigation ul {
+  list-style:none;}
+
+#navigation ul li {
+  float:left;
+  padding-right:10px;
+}

@@ -19,7 +19,6 @@ function(namespace, jQuery, Backbone, Example, User, Index, Navigation) {
   var Router = Backbone.Router.extend({
     routes: {
       "": "index",
-      "user": "user",
       ":hash": "index"
     },
 
@@ -32,40 +31,8 @@ function(namespace, jQuery, Backbone, Example, User, Index, Navigation) {
         $("#navigation").html(el);
       });
 
-      // Attach the tutorial to the DOM
       index.render(function(el) {
         $("#main").html(el);
-
-        // Fix for hashes in pushState and hash fragment
-        if (hash && !route._alreadyTriggered) {
-          // Reset to home, pushState support automatically converts hashes
-          Backbone.history.navigate("", false);
-
-          // Trigger the default browser behavior
-          location.hash = hash;
-
-          // Set an internal flag to stop recursive looping
-          route._alreadyTriggered = true;
-        }
-      });
-    },
-    user: function(hash) {
-      var user = new User.Views.Single();
-
-      user.render(function(el) {
-        $("#main").html(el);
-
-        // Fix for hashes in pushState and hash fragment
-        if (hash && !route._alreadyTriggered) {
-          // Reset to home, pushState support automatically converts hashes
-          Backbone.history.navigate("", false);
-
-          // Trigger the default browser behavior
-          location.hash = hash;
-
-          // Set an internal flag to stop recursive looping
-          route._alreadyTriggered = true;
-        }
       });
     }
   });
@@ -80,7 +47,7 @@ function(namespace, jQuery, Backbone, Example, User, Index, Navigation) {
     // Define your master router on the application namespace and trigger all
     // navigation from this instance.
     app.router = new Router();
-
+    new User.Router();
     // Trigger the initial route and enable HTML5 History API support
     Backbone.history.start({ pushState: true });
   });

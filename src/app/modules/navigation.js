@@ -21,29 +21,31 @@ function(namespace, Backbone) {
       label: "",
       url: ""
     }
-  
   });
+
   Navigation.Collection = Backbone.Collection.extend({ 
     model:Navigation.Model 
   });
-  Navigation.Router = Backbone.Router.extend({ /* ... */ });
 
   // This will fetch the tutorial template and render it.
   Navigation.Views.Primary = Backbone.View.extend({
     template: "app/templates/navigation.html",
 
-    model: Navigation.Model,
+    model: new Navigation.Model,
 
     initialize: function() {
-      this.collection  = new Navigation.Collection;
-      this.collection.add({"label":"Home", "url":"#index"});
+
     },
 
     render: function(done) {
       var view = this;
       // Fetch the template, render it to the View element and call done.
       namespace.fetchTemplate(this.template, function(tmpl) {
-        view.el.innerHTML = tmpl({navItems:this.collection});
+        var collection = new Navigation.Collection;
+        collection.add({"label":"Home", "url":"#index"});
+        collection.add({"label":"Register", "url":"#user"});
+
+        view.el.innerHTML = tmpl({navItems:collection});
 
         // If a done function is passed, call it with the element
         if (_.isFunction(done)) {

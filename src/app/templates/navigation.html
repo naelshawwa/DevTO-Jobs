@@ -1,7 +1,6 @@
 <ul>
-  <li><a href="#index">Index</a></li>
+<% _.each(navItems.models, function(navItem){ %>
+  <li><a href="<%= navItem.attributes.url %>"><%= navItem.attributes.label %></a></li>
+<% }); %>
 </ul>
-<% _.each(navItems, function(navItem){ %>
-  <%= navItem.Label %><br />
-  <% }); %>
-
+<br style="clear:both;" />
