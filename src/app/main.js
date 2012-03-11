@@ -10,28 +10,38 @@ require([
   "modules/example",
   "modules/user",
   "modules/index",
-  "modules/navigation"
+  "modules/navigation",
+  "modules/job"
 ],
 
-function(namespace, jQuery, Backbone, Example, User, Index, Navigation) {
+function(namespace, jQuery, Backbone, Example, User, Index, Navigation, Job) {
 
   // Defining the application router, you can attach sub routers here.
   var Router = Backbone.Router.extend({
     routes: {
-      "": "index",
-      ":hash": "index"
+     "": "index",
+      ":hash": "index",
+      "/job": "index"
     },
-
+    initialize: function(){
+    	 this.UserRouter = new User.Router();
+    	 this.JobRouter = new Job.Router();
+    },
     index: function(hash) {
+    	console.log("Main index");
       var route = this;
       var index = new Index.Views.Index();
       var navigation = new Navigation.Views.Primary();
 
       navigation.render(function(el) {
+    	  console.log("navigation render");
+    	  console.log(el);
         $("#navigation").html(el);
       });
 
       index.render(function(el) {
+    	  console.log("index render");
+    	  console.log(el);
         $("#main").html(el);
       });
     }
@@ -46,8 +56,12 @@ function(namespace, jQuery, Backbone, Example, User, Index, Navigation) {
   jQuery(function($) {
     // Define your master router on the application namespace and trigger all
     // navigation from this instance.
+	  
+	
+	
     app.router = new Router();
-    new User.Router();
+  
+   
     // Trigger the initial route and enable HTML5 History API support
     Backbone.history.start({ pushState: true });
   });
@@ -72,6 +86,8 @@ function(namespace, jQuery, Backbone, Example, User, Index, Navigation) {
       // cost of losing all route events) you can change the following line
       // to: Backbone.history.navigate(href, true);
       app.router.navigate(href, true);
+     
+     
     }
   });
 

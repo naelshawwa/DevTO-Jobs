@@ -1,6 +1,6 @@
 <ul>
 <% _.each(navItems.models, function(navItem){ %>
-  <li><a href="<%= navItem.attributes.url %>"><%= navItem.attributes.label %></a></li>
+  <li><a href="#<%= navItem.attributes.url %>"><%= navItem.attributes.label %></a></li>
 <% }); %>
 </ul>
 <br style="clear:both;" />

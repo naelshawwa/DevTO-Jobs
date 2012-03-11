@@ -1,0 +1,15 @@
+<h1>Recent #DevTO Jobs</h1>
+
+<ul class="sub-nav">
+	<li><a href="#/jobs/new">Add a job</a></li>
+</ul>
+<% console.log(this) %>
+<% if(!_.isUndefined(listings)) { %>
+		<ul>
+			<% listings.forEach(function(listing){%>
+				<li><a href="#/jobs/<%= listing.id %>"><%= listing.get("name") %></a></li>
+			<%});%>
+	
+		</ul>
+		
+<% } %>

@@ -20,14 +20,15 @@ function(namespace, Backbone, Navigation) {
   User.Collection = Backbone.Collection.extend({ /* ... */ });
   User.Router = Backbone.Router.extend({ 
     routes: {
-      "": "user",
-      "create":"create"
+      "/user/": "user",
+      "/user/create":"create"
     },
     user: function(hash) {
-
+    	 console.log("user index");
       var user = new User.Views.Single();
       var navigation = new Navigation.Views.Primary();
 
+      console.log(user);
       navigation.render(function(el) {
         $("#navigation").html(el);
       });
@@ -37,7 +38,7 @@ function(namespace, Backbone, Navigation) {
       });
     },
     create: function(hash) {
-
+    	 console.log("user create");
       var user = new User.Views.Create();
       var navigation = new Navigation.Views.Primary();
 
@@ -53,7 +54,7 @@ function(namespace, Backbone, Navigation) {
 
   // This will fetch the tutorial template and render it.
   User.Views.Single = Backbone.View.extend({
-    template: "app/templates/user.html",
+    template: "/app/templates/user.html",
 
     render: function(done) {
       var view = this;

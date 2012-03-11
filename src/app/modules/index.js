@@ -22,7 +22,7 @@ function(namespace, Backbone) {
 
   // This will fetch the tutorial template and render it.
   Index.Views.Index = Backbone.View.extend({
-    template: "app/templates/index.html",
+    template: "/app/templates/index.html",
 
     render: function(done) {
       var view = this;

@@ -42,8 +42,9 @@ function(namespace, Backbone) {
       // Fetch the template, render it to the View element and call done.
       namespace.fetchTemplate(this.template, function(tmpl) {
         var collection = new Navigation.Collection;
-        collection.add({"label":"Home", "url":"#index"});
-        collection.add({"label":"Register", "url":"#user"});
+        collection.add({"label":"Home", "url":""});
+        collection.add({"label":"Register", "url":"/user/"});
+        collection.add({"label":"Jobs", "url":"/jobs/"});
 
         view.el.innerHTML = tmpl({navItems:collection});
 
